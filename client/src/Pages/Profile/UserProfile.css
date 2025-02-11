@@ -1,0 +1,34 @@
+.profile-container {
+    max-width: 900px;
+    margin: 20px auto;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .profile-body {
+    padding: 20px;
+  }
+  
+  a {
+    color: #2575fc;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  @media (max-width: 768px) {
+    .profile-container {
+      margin: 10px;
+      box-shadow: none;
+      border-radius: 0;
+    }
+  
+    .profile-body {
+      padding: 10px;
+    }
+  }
+  

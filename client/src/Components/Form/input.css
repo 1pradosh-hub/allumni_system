@@ -1,0 +1,12 @@
+.input-box label {
+    color: #333;
+  }
+
+.box {
+    width: 100%;
+    padding-top: 1em;
+  }
+.form .column {
+    display: flex;
+    column-gap: 15px;
+  }

@@ -1,0 +1,28 @@
+.profile-section {
+    margin-bottom: 20px;
+  }
+  
+  .profile-section h2 {
+    font-size: 1.5em;
+    color: #333;
+    border-bottom: 2px solid #2575fc;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  
+  i{
+    padding: 6px;
+  }
+
+  .profile-section p,
+  .profile-section ul {
+    margin: 0;
+    padding: 5px 0;
+  }
+  
+  @media (max-width: 768px) {
+    .profile-section h2 {
+      font-size: 1.2em;
+    }
+  }
+  

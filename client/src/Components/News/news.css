@@ -1,0 +1,52 @@
+.shape-background-1 {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.default-button::before {
+    content: '';
+    width: 0%;
+    height: 100%;
+    transition: .5s ease-in-out;
+    background-color: var(--secondColor);
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+}
+/* .default-button{
+    border-radius: 10px !important;
+} */
+
+.input-group-custom {
+    position: relative;
+    max-width: 500px;
+    width: 100%;
+    display: flex; 
+    align-items: center;
+    padding-left: 6em;
+    height: 50px;
+    
+}
+
+/* .f-custom{
+    width: 100%;
+    position: relative;
+    display: flex;
+    
+
+} */
+.f-custom{
+    position: relative;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.ri{
+    position: relative;
+    display: flex;
+
+}

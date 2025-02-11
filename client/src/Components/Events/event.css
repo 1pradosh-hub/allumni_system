@@ -1,0 +1,175 @@
+.ptb-100 {
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+.section-content {
+    margin-top: 20px;
+}
+
+.events-1{
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 24, 52, 0.95);
+    left: 0;
+    top: 0;
+    z-index: 0;
+}
+
+.event-card {
+    position: relative;
+    overflow: hidden;
+    margin-top: 30px;
+    color: #ffffff;
+}
+.event-card::before {
+    content: '';
+    width: 100%;
+    height: 0%;
+    transition: .5s ease-in-out;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 0;
+}
+img{
+    max-width: 100%;
+    height: auto;
+}
+.e-card{
+    width: 100%;
+    height: 100%;
+    display: block;
+    transition: transform 0.3s ease;
+}
+.event-card .event-card-text {
+    position: absolute;
+    bottom: -100%; /* Start hidden below the image */
+    left: 0;
+    width: 100%;
+    text-decoration: none;
+    height: 100%;
+    background-color: rgba(10, 69, 136, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: bottom 0.5s ease; /* Slide effect */
+}
+.event-card:hover .e-card {
+    transform: scale(1.05);
+    height: 100%;
+}
+.event-card:hover .event-card-text {
+    bottom: 0;
+}
+.event-card .event-card-text ul {
+    margin: 0;
+    padding: 0;
+    color: rgb(255, 255, 255);
+}
+.event-card .event-card-text ul li {
+    display: inline-block;
+    margin-right: 20px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgb(255, 255, 255);
+}
+.event-card .event-card-text ul li i {
+    font-size: 15px;
+    margin-right: 5px;
+    color: rgb(255, 255, 255);
+    position: relative;
+    top: 2px;
+}
+.event-card-text ul li, 
+.event-card-text h4,
+.event-card-text a {
+    color: white; /* or your desired color */
+    text-decoration: none;
+}
+
+.default-section-title-middle {
+    max-width: 600px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.default-section-title span {
+    color: #ec5251;
+    position: relative;
+    margin-bottom: 12px;
+    display: inline-block;
+    font-weight: 400;
+    font-size: var(--fontSize);
+    font-family: var(--fontFamily);
+}
+
+/* ----------------------------------------------Button section------------------------------------------------------------------------ */
+.default-button-middle {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+}
+.default-button {
+    padding: 13px 35px;
+    position: relative;
+    display: inline-block;
+    border: 1px solid transparent;
+    transition: .5s ease-in-out;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0px;
+    color: white;
+    background-color: #EC5251;
+    font-size: 15px;
+    font-weight: 500;
+    /* font-family: var(--fontFamily2); */
+}
+.default-button:hover {
+    background-color: rgb(136, 6, 82);
+    
+}
+.default-button::before {
+    content: '';
+    width: 0%;
+    height: 100%;
+    -webkit-transition: .5s ease-in-out;
+    transition: .5s ease-in-out;
+    background-color: var(--secondColor);
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+}
+.mt-30 {
+    margin-top: 30px;
+}
+.default-button-middle {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* ----------------------------------------------Button section end------------------------------------------------------------------------ */
+
+.color-title h3 {
+    color: #ffffff;
+}
+.color-title h3#blg {
+    color: black;
+}
+.default-section-title h3:last-child {
+    margin-bottom: 0px;
+}
+
+
+
+/* @media only screen and (min-width: 768px) and (max-width: 991px) {
+    .event-card .event-card-text {
+        padding: 15px;
+    }
+} */

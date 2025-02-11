@@ -1,0 +1,20 @@
+/* button.css */
+.custom-button {
+    width: 100%;
+    height: 56px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background: #626CD6;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  
+  .custom-button:hover {
+    background: #4954d0;
+  }
+  
