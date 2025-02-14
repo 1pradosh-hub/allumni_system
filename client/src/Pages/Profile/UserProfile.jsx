@@ -9,7 +9,7 @@ import {useState} from 'react';
 const UserProfile = () => {
   const [user, setUser] = useState({
     name: "",
-    // profilePicture: profile,
+    profilePicture: profile,
     currentPosition: "",
     email: "",
     phone: "",
@@ -30,23 +30,29 @@ const UserProfile = () => {
         profilePicture={user.profilePicture}
       />
       <div className="profile-body">
-        <ProfileSection title="Contact Information">
+        <ProfileSection title="Contact Information"  modalTitle="Contact Information"
+            modalContent="Adding your Contact Information helps recruiters know your value.">
+
           <p>Email: <a href={`mailto:${user.email}`}>{user.email}</a></p>
           <p>Phone: {user.phone}</p>
           <p>LinkedIn: <a href={user.linkedIn} target="_blank" rel="noopener noreferrer">{user.linkedIn}</a></p>
           <p>GitHub: <a href={user.github} target="_blank" rel="noopener noreferrer">{user.github}</a></p>
         </ProfileSection>
 
-        <ProfileSection title="Education">
+        <ProfileSection title="Education"
+            modalTitle="Education Details"
+            modalContent="Adding your educational details helps recruiters know your value.">
           <p>{user.degree}</p>
           <p>Graduation Year: {user.graduationYear}</p>
         </ProfileSection>
 
-        <ProfileSection title="Skills">
+        <ProfileSection title="Skills" modalTitle="Skills"
+            modalContent="Adding your skill details helps recruiters know your value.">
           <ProfileList items={user.skills} />
         </ProfileSection>
 
-        <ProfileSection title="Interests">
+        <ProfileSection title="Interests" modalTitle="Intrests"
+            modalContent="Adding your Intrests helps recruiters know your value.">
           <ProfileList items={user.interests} />
         </ProfileSection>
       </div>
