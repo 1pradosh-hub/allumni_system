@@ -14,6 +14,10 @@
     padding: 6px;
   }
 
+  .icn {
+    padding: 1em;
+}
+
   .profile-section p,
   .profile-section ul {
     margin: 0;

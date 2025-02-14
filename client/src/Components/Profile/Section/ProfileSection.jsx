@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './ProfileSection.css';
+import Modal from '../../Modal/Modal';
 
-const ProfileSection = ({ title, children }) => {
+const ProfileSection = ({ title, children, modalTitle, modalContent }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsOpen(true);
+  };
+
   return (
     <div className="profile-section">
       <h2>{title}</h2>
-      <i class="fa-solid fa-plus" ></i>
+      <div className="fa-solid fa-plus icn" onClick={handleOpenModal} ></div>
+
+      {isOpen && (
+        <Modal
+          setIsOpen={setIsOpen}
+          title={modalTitle}
+          content={modalContent}
+        />
+      )}
+
       {children}
     </div>
   );
