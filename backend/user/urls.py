@@ -8,7 +8,7 @@ urlpatterns = [
     path('login/', views.Login.as_view(), name='login'),
     path('logout/', views.Logout.as_view(), name='logout'),
     path('verify/', views.VerifyOTP.as_view(), name='verify'),
-    path('forget-password/', views.ForgotPass.as_view(), name='forgot'),
+    path('forget-password/', views.ForgotPass.as_view(), name='forgot-password'),
     path('profile/', views.UserProfile.as_view(), name='profile'),
 
 ]
