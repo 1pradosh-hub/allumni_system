@@ -12,7 +12,7 @@ from django.core.mail import send_mail
 import random
 from django.conf import settings
 
-# Userregistration serializer
+# User registration serializer
 class UserSerializer(serializers.ModelSerializer):
     username = serializers.CharField( required=True)
     email = serializers.EmailField(required=True)
@@ -126,6 +126,14 @@ class UserLogin(serializers.Serializer):
             'refresh': str(refresh),
             'access': access_token,
         }
+
+# User profile serializer
+class ProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Profile
+        fields = ['user', 'bio']
 
 # User logout serializer
 class UserLogout(serializers.Serializer):
