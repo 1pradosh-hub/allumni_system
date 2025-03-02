@@ -28,11 +28,3 @@ def send_verification_email(email):
         print(f"No user found for email: {email}")
 
 
-# {
-
-#     "username": "pradosh",
-#     "email": "pradoshmihirdash@gmail.com",
-#     "password": "password",
-#     "birth_date": "2002-10-10",
-#     "gender": "Male"
-# }
