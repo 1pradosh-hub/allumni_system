@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import status
+from rest_framework import status, generics, permissions
 from rest_framework.response import Response
 from .serializers import *
 from rest_framework.views import APIView
@@ -11,6 +11,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 from .helpers import send_forget_password_mail
 import uuid
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 class Register(APIView):
     def post(self, request):
@@ -29,7 +31,7 @@ class Login(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# @login_required
+
 class Logout(APIView):
     serializer_class = UserLogout
     permission_classes = [IsAuthenticated]  # Ensure only authenticated users can log out
@@ -101,6 +103,19 @@ class ForgotPass(APIView):
         send_forget_password_mail(user, token)
         return Response({'message': 'An email has been sent to your email address'}, status=200)
 
-
+@method_decorator(login_required, name='dispatch')
 class UserProfile(APIView):
-    pass
+    permission_classes = [IsAuthenticated]  # Ensures only authenticated users can access
+
+    def get(self, request):
+        profile = Profile.objects.get(user=request.user)  # Fetch the logged-in user's profile
+        serializer = ProfileSerializer(profile)
+        return Response(serializer.data)
+
+    def post(self, request):
+        profile = Profile.objects.get(user=request.user)
+        serializer = ProfileSerializer(profile, data=request.data, partial=True)  
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
