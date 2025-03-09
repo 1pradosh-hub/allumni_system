@@ -54,9 +54,13 @@ class User(AbstractBaseUser):
 
 # User profile model
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")  # Delete profile when user is deleted
     bio = models.TextField(blank=True)
     # avatar = models.ImageField(upload_to='avatars/', default='default.jpg')
 
     def __str__(self):
         return f"{self.user.username}'s Profile"
+
+    # Override the save method of the model
+    def save(self):
+        super().save()
