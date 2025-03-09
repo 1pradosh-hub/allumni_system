@@ -20,7 +20,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = '__all__'
+        # fields = '__all__'
+        fields = ('id', 'username', 'email', 'password')
 
         # Ensure email is unique and has a valid format.
     def validate_email(self, value):
@@ -99,33 +100,6 @@ class UserLogin(serializers.Serializer):
     email = serializers.EmailField(max_length=255)
     password = serializers.CharField(max_length=128, write_only=True)
     token = serializers.CharField(max_length=255, read_only=True)
-
-    def validate(self, data):
-        email = data.get('email')
-        password = data.get('password')
-
-        user = authenticate(request=self.context.get('request'), email=data.get('email'), password=data.get('password'))
-        if not user:
-            raise ValidationError('A user with this email and password is not found.')
-        
-        if not user.is_verified:
-            raise serializers.ValidationError({
-                'status': 400,
-                'message': 'Your account is not verified. Please check your email for the verification link.'
-            })
-
-        # Generate JWT token
-        refresh = RefreshToken.for_user(user)
-        access_token = str(refresh.access_token)
-
-        # Update the last login time
-        update_last_login(None, user)
-
-        return {
-            'email': user.email,
-            'refresh': str(refresh),
-            'access': access_token,
-        }
 
 # User profile serializer
 class ProfileSerializer(serializers.ModelSerializer):
