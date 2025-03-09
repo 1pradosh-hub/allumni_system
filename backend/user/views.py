@@ -8,27 +8,59 @@ from .email import *
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework_simplejwt.views import TokenObtainPairView
+
 from .helpers import send_forget_password_mail
 import uuid
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 class Register(APIView):
+    permission_classes = [AllowAny]
+    serializer_class = UserSerializer
     def post(self, request):
-        serializer = UserSerializer(data=request.data)
+        serializer = serializer_class(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response({"message": "User registered successfully. OTP sent to your email."}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class Login(APIView):
+class Login(TokenObtainPairView):
+    permission_classes = [AllowAny]
+    serializer_class = UserLogin
+
     def post(self, request, *args, **kwargs):
-        serializer = UserLogin(data=request.data)
-        if serializer.is_valid():
-            return Response(serializer.validated_data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # print(request.data)  # Debugging
+        # serializer = UserLogin(data=request.data)
+        # if serializer.is_valid():
+        #     return Response(serializer.validated_data, status=status.HTTP_200_OK)
+        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        email = request.data.get('email')
+        password = request.data.get('password')
+        # Authenticate thr registered user
+        user = authenticate( email=email, password=password)
+        
+        if user is not None:
+            # Generate JWT token
+            refresh = RefreshToken.for_user(user)
+            access_token = str(refresh.access_token)
+            # return the user data
+            return Response({
+                'refresh': str(refresh),
+                'access': access_token,
+                'user': UserSerializer(user).data,
+            })
+        else:
+            raise ValidationError('A user with this email and password is not found.')
+
+        # Check the user is verified or not 
+        if not user.is_verified:
+            raise serializers.ValidationError({
+                'status': 400,
+                'message': 'Your account is not verified. Please check your email for the verification link.'
+            })
 
 
 
@@ -103,19 +135,23 @@ class ForgotPass(APIView):
         send_forget_password_mail(user, token)
         return Response({'message': 'An email has been sent to your email address'}, status=200)
 
-@method_decorator(login_required, name='dispatch')
+
 class UserProfile(APIView):
     permission_classes = [IsAuthenticated]  # Ensures only authenticated users can access
+    # serializer_class = ProfileSerializer
 
     def get(self, request):
-        profile = Profile.objects.get(user=request.user)  # Fetch the logged-in user's profile
-        serializer = ProfileSerializer(profile)
-        return Response(serializer.data)
+        user = request.user  # Get logged-in user from token
+        # profile = Profile.objects.get(user=user)
+        user_serializer = UserSerializer(user)
+        return Response({
+            'user': user_serializer.data
+        })
 
-    def post(self, request):
-        profile = Profile.objects.get(user=request.user)
-        serializer = ProfileSerializer(profile, data=request.data, partial=True)  
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=400)
+    # def post(self, request):
+    #     profile = Profile.objects.get(user=request.user)
+    #     serializer = ProfileSerializer(profile, data=request.data, partial=True)  
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data)
+    #     return Response(serializer.errors, status=400)
