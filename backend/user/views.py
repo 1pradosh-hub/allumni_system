@@ -33,10 +33,6 @@ class Login(TokenObtainPairView):
 
     def post(self, request, *args, **kwargs):
         # print(request.data)  # Debugging
-        # serializer = UserLogin(data=request.data)
-        # if serializer.is_valid():
-        #     return Response(serializer.validated_data, status=status.HTTP_200_OK)
-        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         email = request.data.get('email')
         password = request.data.get('password')
         # Authenticate thr registered user
