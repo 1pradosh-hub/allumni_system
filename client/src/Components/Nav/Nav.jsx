@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import "./nav.css"
 import logo from "../../images/logo.png"
 
 
 export default function Nav(props) {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
