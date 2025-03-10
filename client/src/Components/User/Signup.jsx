@@ -72,7 +72,7 @@ export default function Signup() {
 
       // Handle navigation or display success message here
     } catch (err) {
-      console.error('Signup failed:', err);
+      handleError('Signup failed:', err);
     }
   };
 
