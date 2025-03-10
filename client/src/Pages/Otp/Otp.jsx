@@ -11,21 +11,21 @@ export default function Otp() {
   const handleOtpChange = (e) => {
     const value = e.target.value;
     // Allow only numeric values and restrict length to 6 digits
-    if (/^\d*$/.test(value) && value.length <= 6) {
+    if (/^\d*$/.test(value) && value.length <= 4) {
       setOtp(value);
       setError(''); // Clear error if input is valid
     } else {
-      setError('OTP must be a numeric value and up to 6 digits long.');
+      setError('OTP must be a numeric value and up to 4 digits long.');
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Validate OTP length before submitting
-    if (otp.length === 6) {
+    if (otp.length === 4) {
       console.log('OTP Verified:', otp);
     } else {
-      setError('Please enter a valid 6-digit OTP.');
+      setError('Please enter a valid OTP.');
     }
   };
 
