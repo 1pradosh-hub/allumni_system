@@ -4,9 +4,6 @@ import './login.css';
 import Button from '../Buttons/Button'
 import { useLoginMutation } from '../../ReactSlice/authApi';
 
-
-
-
 export default function Login() {
 
   const [login, { isLoading, error }] = useLoginMutation();
@@ -18,8 +15,8 @@ export default function Login() {
     try {
       const response = await login(credentials).unwrap();
       console.log('Login successful:', response);
+      localStorage.setItem('authToken', response.authToken);
       navigate("/")
-      // Handle login success
     } catch (err) {
       console.error('Login failed:', err);
     }
