@@ -28,7 +28,14 @@ export const authApi = createApi({
         body: userData,
       }),
     }),
+    otp: builder.mutation({
+      query: (userData) => ({
+        url: 'api/otp/', // API endpoint for signup
+        method: 'POST',
+        body: userData,
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useSignupMutation } = authApi;
+export const { useLoginMutation, useSignupMutation, useOtpMutation } = authApi;
