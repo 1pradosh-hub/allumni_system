@@ -35,3 +35,25 @@ The **Alumni Association Platform** is a web-based application that connects alu
    ```bash
    git clone https://github.com/yourusername/alumni-association-platform.git
    cd alumni-association-platform/backend
+
+
+### To run backend server:
+
+## Step 1 -:
+.venv\Scripts\activate
+## Step 2 -: 
+	cd backend
+## Step 3 -: 
+	Python3 manage.py runserver
+
+
+### To run client server: 
+
+## Step 1 -:
+	cd client
+## Step 2 -:
+	npm init
+## Step 3 -:
+	npm start
+
+## Run requirements.txt file 
