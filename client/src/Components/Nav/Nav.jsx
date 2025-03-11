@@ -1,66 +1,67 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import "./nav.css"
-import logo from "../../images/logo.png"
+import "./nav.css";
+import logo from "../../images/logo.png";
+import {Links, List} from '../NavItems/NavItems';
 
 
 export default function Nav(props) {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = () =>{
+    setDropdownOpen(!dropdownOpen)
+  }
+
+  const menuItems = [
+    { label: 'Activities', path: '#' },
+    { label: 'Resources', path: '#' },
+    { label: 'Contact', path: '#' },
+    { label: 'Terms & Conditions', path: '#' },
+  ];
+  const navLinks = [
+    { label: 'About', path: '#' },
+    { label: 'Message', path: '#' },
+    { label: 'News & Events', path: '#' },
+    { label: 'Gallery', path: '#' },
+    { label: 'Career', path: '#' },
+
+  ];
 
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-        <div className='logo_box'>
-          <Link className="navbar-brand name" to="/">
-            {props.title}
-          </Link>
-          </div>  
+          <div className='logo_box'>
+            <Link className="navbar-brand name" to="/">
+              {props.title}
+            </Link>
+          </div>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse p" id="navbarSupportedContent">
-            <ul className="navbar-nav ms-auto ">
-              <li className="nav-item">
-                <Link className="nav-link" aria-current="page" to="#">About</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="#">Message</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link">News & Events</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link">Gallery</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to='/career'>Career</Link>
-              </li>
-              <li className="nav-item dropdown">
-                <Link className="nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  More
-                </Link>
-                <ul className="dropdown-menu">
-                  <li><Link className="dropdown-item" to="#">Activities</Link></li>
-                  <li><Link className="dropdown-item" to="#">Resources</Link></li>
-                  <li><hr className="dropdown-divider"/></li>
-                  <li><Link className="dropdown-item" to="#">Contact</Link></li>
-                  <li><Link className="dropdown-item" to="#">Terms &  Conditions</Link></li>
 
-                </ul>
+              {/* Nav items  */}
+              <Links item={navLinks} className="nav-link" />
+
+              {/* More button with drop down */}
+              <li className="nav-item dropdown">
+              <button className='nav-link dropdown-toggle' onClick={toggleDropdown} data-bs-toggle="dropdown" aria-expanded="false">
+                More
+              </button>
+              <ul className={`dropdown-menu ${dropdownOpen ? 'show' : ''}`}>
+                <List items={menuItems} className="dropdown-item" />
+              </ul>
               </li>
-              <li>
-              <div className='d-flex'>
-                <Link className="btn btn-danger  mx-1" to='/login' role='button'>Login</Link>
-               
-              </div>
-              </li>
-            </ul>
-            {/* <div className='d-flex'>
-                <Link className="btn btn-danger  mx-1" to='/login' role='button'>Login</Link>
-               
-              </div> */}
+
+              {/* Profile section  */}
+                <div className='d-flex'>
+                  {localStorage.getItem('authToken') ? (<button className="btn btn-danger  mx-1" to='@'>Logout</button>)
+                    : (<Link className="btn btn-danger  mx-1" to='/login' role='button'>Login</Link>)}
+                </div>
+
+
           </div>
         </div>
       </nav>
